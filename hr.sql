@@ -166,7 +166,43 @@ FROM
 	EMPLOYEES e
 WHERE
 	e.COMMISSION_PCT IS NOT NULL;
-	
+
+--함수
+--18.first name 이 curtis 인 사람의 first_name, last_name, email, phone_number, job_id 조회
+--단, job_id 결과는 소문자로 출력
+SELECT
+	LOWER(e.JOB_ID),
+	e.EMAIL,
+	e.FIRST_NAME,
+	e.LAST_NAME,
+	e.PHONE_NUMBER
+FROM
+	EMPLOYEES e
+WHERE
+	e.FIRST_NAME = 'Curtis';
+	--19. 부서번호가 60,70,80,90 인 사원들의 사원번호, first_name, hire_date, job_id 조회
+	--단, job_id가 it_prog 인 사원의 경우 프로그래머로 변경하여 출력
+SELECT
+	REPLACE(e.JOB_ID, 'IT_PROG', '프로그래머'),
+	e.HIRE_DATE ,
+	e.FIRST_NAME,
+	e.EMPLOYEE_ID
+FROM
+	EMPLOYEES e
+WHERE
+	e.DEPARTMENT_ID IN (60, 70, 80, 90);
+
+--20. job_id 가 ad_pres, pu_clerk 인 사원들의 사원번호, first_name, last_name, 부서번호, job_id 조화
+--단, 사원명은 first_name과 last_name 을 연결하여 출력
+SELECT
+	e.JOB_ID,
+	e.FIRST_NAME || ' ' || e.LAST_NAME,
+	e.EMPLOYEE_ID,
+	e.DEPARTMENT_ID
+FROM
+	EMPLOYEES e
+WHERE
+	e.JOB_ID IN ('AD_PRES', 'PU_CLERK');
 
 
 
