@@ -8,3 +8,9 @@
 --@C:\app\soldesk\product\21c\dbhomeXE\rdbms\admin\scott.SQL 
 
 ALTER SESSION SET "_oracle_script"= TRUE;
+
+-- 권한 부여 : GRANT
+GRANT CREATE VIEW TO SCOTT;
+
+GRANT CREATE PUBLIC SYNONYM TO SCOTT;
+GRANT CREATE SYNONYM TO SCOTT;
