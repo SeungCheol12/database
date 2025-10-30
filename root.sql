@@ -147,6 +147,15 @@ create database if not exists EXAM;
 use EXAM;
 
 -- 테이블 생성
+-- 데이터 유형
+-- 숫자형 : TINYINT(1 BYTE), SMALLINT(2), MEDIUMINT(3), INT(4), BIGIN(8)
+-- 실수형 : 1. 고정 소수점 방식
+-- 			 DECIMAL / NUMERIC
+--  		  2. 부동 소수점 방식
+--    	     FLOAT, DOUBLE
+-- 문자형 : CHAR(N) - 고정 길이 문자열
+--		   VARCHAR(N)
+-- 날짜형 : TIME / DATE / DATETIME / TIMESTAMP
 create table TABLE1(
 CO1 INT, COL2 VARCHAR(50), COL3 DATETIME
 );
@@ -157,9 +166,98 @@ CO1 INT auto_increment primary KEY, COL2 VARCHAR(50), COL3 DATETIME
 
 
 insert into TABLE2(COL2, COL3) values('TEST', '2025-10-29');
-
+insert into TABLE2(COL1, COL2, COL3) values(3, 'TEST', '2025-10-30');
 
 select * from TABLE2;
+alter table TABLE2 rename column col1 to COL1;
+-- 현재 auto_increment 로 생성된 마지막 값 확인
+select LAST_INSERT_ID();
+
+-- auto_increment 시작값 변경
+alter table TABLE2 auto_increment = 100;
+
+-- auto_increment 증가값 변경
+set @@AUTO_INCREMENT_INCREMENT = 1;
+
+create table EXAM_INSERT_SELECT_FROM(
+	COL1 INT,
+	COL2 VARCHAR(10)
+);
+create table EXAM_INSERT_SELECT_TO(
+	COL1 INT,
+	COL2 VARCHAR(10)
+);
+
+insert into EXAM_INSERT_SELECT_FROM(COL1, COL2) values (1, 'Do');
+insert into EXAM_INSERT_SELECT_FROM(COL1, COL2) values (2, 'It');
+insert into EXAM_INSERT_SELECT_FROM(COL1, COL2) values (3, 'MySQL');
+
+-- EXAM_INSERT_SELECT_FROM => EXAM_INSERT_SELECT_10
+insert into EXAM_INSERT_SELECT_TO select * from EXAM_INSERT_SELECT_FROM;
+
+create table EXAM_SELECT_NEW as select * from EXAM_INSERT_SELECT_FROM;
+
+
+
+
+select * from EXAM_INSERT_SELECT_FROM;
+select * from EXAM_INSERT_SELECT_TO;
+select * from EXAM.exam_select_new ;
+rename table EXAM_INSERT_SELECT_10 to EXAM_INSERT_SELECT_TO; 
+
+create table exam_DATE_TABLE(
+	COL1 DATE, COL2 TIME, COL3 DATETIME, COL4 TIMESTAMP 
+);
+
+insert into EXAM.exam_date_table values (NOW(), NOW(), NOW(), NOW());
+
+select * FROM EXAM.exam_date_table edt ;
+
+-- 사용자 생성
+-- 아이디 대소문자 구별함
+-- localhost : 내 컴퓨터(로컬 접속만 가능)
+-- '%' : 모든 ip에서 접속 가능(외부 접속 허용)
+CREATE USER 'TEST1'@'localhost' IDENTIFIED BY '12345';
+CREATE USER 'TEST1'@'%' IDENTIFIED BY '12345';
+
+
+-- grant 권한 목록 on 데이터베이스.테이블 to '사용자이름'@'호스트'
+grant all privileges on exam.* to 'TEST1'@'localhost';
+-- 변경사항 반영
+flush privileges;
+
+-- 사용자 삭제
+drop user 'TEST1'@'localhost';
+
+-- 비밀 번호 변경
+-- alter  USER 'TEST1'@'localhost' IDENTIFIED BY '12345';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
